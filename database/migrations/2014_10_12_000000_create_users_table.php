@@ -21,12 +21,11 @@ return new class extends Migration
             $table->string('password');
             $table->string('passport');
             $table->string('passport_img');
-            $table->tinyInteger('status');
-            $table->boolean('notify');
-            $table->string('fcm_token');
-            $table->string('lang', 10);
-            $table->string('otp');
-            $table->double('wallet', 12, 2);
+            $table->boolean('status')->default(true);
+            $table->boolean('notify')->default(true);
+            $table->string('lang', 10)->nullable();
+            $table->string('otp')->nullable();
+            $table->double('wallet', 12, 2)->default(0);
             $table->rememberToken();
             $table->timestamps();
         });
