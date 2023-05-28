@@ -57,7 +57,9 @@
     },
     "config": {
         "optimize-autoloader": true,
-        "platform-check": false,
+        "platform": {
+            "php": "7.1.0"
+        },
         "preferred-install": "dist",
         "sort-packages": true,
         "allow-plugins": {
