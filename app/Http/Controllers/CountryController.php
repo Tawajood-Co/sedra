@@ -4,9 +4,36 @@ namespace App\Http\Controllers;
 
 use App\Models\City;
 use App\Models\Country;
+use Illuminate\Http\Request;
+use App\Traits\{response};
+use Validator;
 
-class StoreCountriesController extends Controller
+class CountryController extends Controller
 {
+
+    use response;
+
+    public function getcountries(){
+       $countries=Country::get();
+       $data['countries']=$countries;
+       return $this->response(true,'get countries successfuly',$data);
+    }
+
+    public function getcities(Request $request){
+        $validator =Validator::make($request->all(), [
+            'country_id'=>'required'
+          ]);
+          if ($validator->fails()) {
+           return response()->json([
+               'message'=>$validator->messages()->first()
+           ],403);
+           }
+        $cities=City::where('country_id',$request->country_id)->get();
+        $data['cities']=$cities;
+        return $this->response(true,'get cities successfuly',$data);
+    }
+
+
     public function storeCountries(){
         $countries_ar =  array(
             1 => array('id' => 275, 'alpha2' => 'ps', 'alpha3' => 'pse', 'name' => 'فلسطين'),

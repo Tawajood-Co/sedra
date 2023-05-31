@@ -21,14 +21,14 @@ return new class extends Migration
             $table->string('email');
             $table->string('logo');
             $table->string('password');
-            $table->string('fcm_token');
+            //$table->string('fcm_token');
             $table->string('lang', 10);
-            $table->tinyInteger('status');
-            $table->string('otp');
-            $table->boolean('notify');
-            $table->double('rate',2,1);
-            $table->integer('rate_count');
-            $table->double('balance', 12, 2);
+            $table->boolean('status')->default(true);
+            $table->string('otp')->nullable();
+            $table->boolean('notify')->default(true);
+            $table->double('rate',2,1)->nullable();
+            $table->integer('rate_count')->nullable();
+            $table->double('balance', 12, 2)->default(0.00);
             $table->timestamps();
         });
     }

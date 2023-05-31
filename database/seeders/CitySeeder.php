@@ -14,6 +14,17 @@ class CitySeeder extends Seeder
      */
     public function run()
     {
+
+        City::create([
+            'ar' => [
+                'name' => 'غزه'
+            ],
+            'en' => [
+                'name' => 'Gaza'
+            ],
+            'country_id' => 1,
+            ]);
+
         City::create([
             'ar' => [
                 'name' => 'مدينه نصر'

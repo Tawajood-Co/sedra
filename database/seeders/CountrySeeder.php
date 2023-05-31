@@ -2,7 +2,7 @@
 
 namespace Database\Seeders;
 
-use App\Http\Controllers\StoreCountriesController;
+use App\Http\Controllers\CountryController;
 use App\Models\Country;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
@@ -16,7 +16,7 @@ class CountrySeeder extends Seeder
      */
     public function run()
     {
-        (new StoreCountriesController)->storeCountries();
+        (new CountryController)->storeCountries();
 //        Country::create([
 //            'ar' => [
 //                'name' => 'السعودية'

@@ -2,10 +2,15 @@
 
 namespace App\Http\Requests;
 
+use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Http\Exceptions\HttpResponseException;
+use Illuminate\Validation\Rule;
+use App\Traits\response;
 
 class UserRequest extends FormRequest
 {
+    use response;
     /**
      * Determine if the user is authorized to make this request.
      *
@@ -32,5 +37,9 @@ class UserRequest extends FormRequest
             'passport_img'          => 'required',
             'country_code'          => 'required'
         ];
+    }
+    public function failedValidation( Validator $validator )
+    {
+        throw new HttpResponseException($this->response(false,$validator->messages()->first(),null,422));
     }
 }

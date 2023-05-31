@@ -21,11 +21,11 @@ return new class extends Migration
             $table->foreign('country_id')->references('id')->on('countries')->onDelete('cascade');
             $table->bigInteger('city_id')->unsigned();
             $table->foreign('city_id')->references('id')->on('cities')->onDelete('cascade');
-            $table->double('lat');
-            $table->double('lng');
-            $table->double('rate', 2, 1);
-            $table->integer('rate_count');
-            $table->tinyInteger('status');
+            $table->double('single_price', 7, 1);
+            $table->double('double_price', 7, 1);
+            $table->double('rate', 2, 1)->default(0);
+            $table->integer('rate_count')->default(0);
+            $table->boolean('status')->default(true);
             $table->integer('persons_count');
             $table->integer('available_places');
             $table->boolean('distinct')->default(0);

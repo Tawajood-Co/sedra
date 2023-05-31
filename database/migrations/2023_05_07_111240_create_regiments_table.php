@@ -21,8 +21,7 @@ return new class extends Migration
             $table->integer('days_count');
             $table->integer('persons_count');
             $table->integer('available_places');
-            $table->double('single_price', 7, 1);
-            $table->double('double_price', 7, 1);
+          
             $table->timestamps();
         });
     }

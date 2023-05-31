@@ -9,7 +9,9 @@
 return [
      'login'      =>  'you login success',
      'logout'     =>  'you logout success',
-     'register'   =>  'you register success'
+     'register'   =>  'you register success',
+     'add_qrcode' =>   'form added successfuly'
+
 ];
 
 
