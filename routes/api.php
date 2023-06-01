@@ -22,6 +22,9 @@ Route::middleware('lang')->group(function(){
     Route::controller(AuthController::class)->group(function(){
         Route::Post('register','register');
         Route::post('login','login');
+        Route::post('checkphone','checkphone');
+        Route::post('sendotp','sendotp');
+        Route::post('newpassword','updatepassword');
      });
      Route::controller(BarcodeController::class)->group(function(){
         Route::post('store/qrcode','store');

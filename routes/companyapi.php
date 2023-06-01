@@ -2,7 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Api\Company\{AuthController,CampainController};
+use App\Http\Controllers\Api\Company\{AuthController,CampainController,ProfileController};
 use App\Http\Controllers\CountryController;
 /*
 |--------------------------------------------------------------------------
@@ -19,9 +19,13 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 Route::middleware('lang')->group(function(){
-    Route::controller(AuthController::class)->group(function(){
+    Route::controller(AuthController::class)->group(function(){  //
         Route::Post('register','register');
         Route::post('login','login');
+        Route::post('checkphone','checkphone');
+        Route::post('sendotp','sendotp');
+        Route::post('newpassword','updatepassword');
+
      });
 
     Route::controller(CountryController::class)->group(function(){
@@ -30,10 +34,20 @@ Route::middleware('lang')->group(function(){
        Route::get('getprograms','getprograms');
     });
 
-    Route::middleware('CompanyAuthApi')->group(function(){  //
+    Route::middleware('CompanyAuthApi')->group(function(){
+
         Route::controller(CampainController::class)->group(function(){
             Route::Post('store/campaign','store');
         });
+
+        Route::controller(ProfileController::class)->group(function(){
+            Route::get('get/profile','getprofile');
+            Route::post('change/password','changepassword');
+            Route::post('update/profile','updateprofile');
+            Route::get('get/contact','contactus');
+
+        });
+
     });
 });
 

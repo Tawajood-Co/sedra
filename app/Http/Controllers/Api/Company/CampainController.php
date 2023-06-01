@@ -4,8 +4,8 @@ namespace App\Http\Controllers\Api\Company;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Http\Requests\CompaignStore;
-use App\Models\{Campaign,Regiment};
+use App\Http\Requests\companyapi\CompaignStore;
+use App\Models\{Campaign,Regiment,CampaignTranslation,CampaignOfficial};
 use App\Traits\{response,fileTrait};
 use Auth;
 
@@ -35,6 +35,28 @@ class CampainController extends Controller
 
        ]);
 
+       CampaignTranslation::insert([
+        [
+            'name'        =>   $request->name_ar,
+            'description' =>   $request->description_ar,
+            'campaign_id' =>   $compaign->id,
+            'locale'      =>   'ar'
+        ],
+        [
+            'name'        =>   $request->name_en,
+            'description' =>   $request->description_en,
+            'campaign_id' =>$compaign->id,
+            'locale'      =>   'en'
+        ],
+        ]);
+
+        CampaignOfficial::create([
+             'name'            =>$request->admin_name,
+             'phone'           =>$request->admin_phone,
+             'campaign_id'     =>$compaign->id,
+             'country_code'      =>$request->admin_country_code,
+            ]);
+
        foreach($request->regiment_days as $key=>$day){
             Regiment::create([
                 'days_count'         =>$day,
@@ -48,4 +70,7 @@ class CampainController extends Controller
            return $this->response(true,'add copagin successfuly');
 
     }
+
+
+
 }

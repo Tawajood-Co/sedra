@@ -45,6 +45,10 @@ class Company extends Authenticatable implements JWTSubject
         $this->attributes['password'] = Hash::make($value);
     }
 
+    public function getLogoAttribute($value) {
+        return asset('uploads/companies/campaigns/'.$value);
+    }
+
 
     public function companyBankAccounts(): HasMany
     {
