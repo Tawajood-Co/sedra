@@ -34,7 +34,7 @@ class AuthController extends Controller
              return response()->json(['message' => 'Your User username or password maybe incorrect, please try agian'], 401);
          }
          $data['token']=$token;
-         return $this->response(true,__('response.login'),$token);
+         return $this->response(true,__('response.login'),$data);
     }
 
 
