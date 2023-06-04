@@ -31,7 +31,7 @@ class AuthController extends Controller
 
          $credentials = request(['phone','password']);
          if (!$token = auth()->guard('user_api')->attempt($credentials)) {
-             return response()->json(['message' => 'Your Branch username or password maybe incorrect, please try agian'], 401);
+             return response()->json(['message' => 'Your User username or password maybe incorrect, please try agian'], 401);
          }
          return $this->response(true,__('response.login'));
     }
