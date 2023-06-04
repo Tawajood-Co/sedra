@@ -33,7 +33,8 @@ class AuthController extends Controller
          if (!$token = auth()->guard('user_api')->attempt($credentials)) {
              return response()->json(['message' => 'Your User username or password maybe incorrect, please try agian'], 401);
          }
-         return $this->response(true,__('response.login'));
+         $data['token']=$token;
+         return $this->response(true,__('response.login'),$token);
     }
 
 
