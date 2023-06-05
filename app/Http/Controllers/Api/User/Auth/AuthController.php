@@ -24,7 +24,10 @@ class AuthController extends Controller
             'country_code'=>$request->country_code,
             'lang'=>$lang
         ]);
-       return $this->response(true,__('response.register'));
+        $token=auth('user_api')->login($user);
+        $data['token']=$token;
+
+        return $this->response(true,__('response.register'),$data);
     }
 
     public function login(Request $request){
