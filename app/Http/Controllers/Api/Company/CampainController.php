@@ -71,6 +71,11 @@ class CampainController extends Controller
 
     }
 
-
+    public function get_compaines(Request $request){
+        $company=Auth::guard('company_api')->user();
+        $compaines=Campaign::where('company_id',$company->id)->get();
+        $data['data']['compaines']=$compaines;
+        return $this->response(true,'get data success',$data);
+    }
 
 }

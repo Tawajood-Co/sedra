@@ -2,7 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Api\Company\{AuthController,CampainController,ProfileController};
+use App\Http\Controllers\Api\Company\{AuthController,CampainController,ProfileController,SettingController};
 use App\Http\Controllers\CountryController;
 /*
 |--------------------------------------------------------------------------
@@ -38,6 +38,7 @@ Route::middleware('lang')->group(function(){
 
         Route::controller(CampainController::class)->group(function(){
             Route::Post('store/campaign','store');
+            Route::get('get/compaines','get_compaines');
         });
 
         Route::controller(ProfileController::class)->group(function(){
@@ -47,6 +48,11 @@ Route::middleware('lang')->group(function(){
             Route::get('get/contact','contactus');
 
         });
+
+       Route::controller(SettingController::class)->group(function(){
+          Route::get('/update/lang','update_lang');
+          Route::post('update/notify','update_notify');
+       });
 
     });
 });
