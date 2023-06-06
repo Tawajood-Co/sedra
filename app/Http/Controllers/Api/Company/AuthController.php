@@ -33,10 +33,10 @@ class AuthController extends Controller
                 'company_id'        =>$company->id
             ]);
         }
-
-
+        
         $token=auth('company_api')->login($company);
         $data['token']=$token;
+
         return $this->response(true,'register success',$data);
     }
 
@@ -114,7 +114,7 @@ class AuthController extends Controller
            ]);
 
            return $this->response(true,'password updated sucessfuly');
-           
+
     }
 
 

@@ -8,6 +8,7 @@ use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Validation\Rule;
 use Illuminate\Http\Request;
 use App\Traits\response;
+use Auth;
 
 class updateprofille extends FormRequest
 {
@@ -30,12 +31,13 @@ class updateprofille extends FormRequest
      */
     public function rules(Request $request)
     {
+        $company_id=Auth::guard('company_api')->user()->id;
         return [
-            'name'                        => 'required|unique:companies,name,'.$request->id,
-            'phone'                       =>'required|unique:companies,phone,'.$request->id,
+            'name'                        => 'required|unique:companies,name,'.$company_id,
+            'phone'                       => 'required|unique:companies,phone,'.$company_id,
             //'account_number'              => 'required|unique:company_bank_accounts',
             'bank_name'                   => 'required',
-            'email'                       =>  'required|unique:companies,email,'.$request->id,
+            'email'                       =>  'required|unique:companies,email,'.$company_id,
             'country_code'                => 'required',
         ];
     }
