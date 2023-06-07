@@ -52,6 +52,8 @@ Route::middleware('lang')->group(function(){
        Route::controller(SettingController::class)->group(function(){
           Route::get('/update/lang','update_lang');
           Route::post('update/notify','update_notify');
+          Route::get('get/about_us','get_aboutus');
+          Route::get('get/terms','get_terms');
        });
 
     });

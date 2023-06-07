@@ -17,9 +17,9 @@ return new class extends Migration
             $table->id();
             $table->bigInteger('setting_id')->unsigned();
             $table->string('locale')->index();
-            $table->text('about_us');
-            $table->text('terms');
-            $table->text('policy');
+            $table->longText('about_us');
+            $table->longText('terms');
+            $table->longText('policy');
 
             $table->unique(['setting_id', 'locale']);
             $table->foreign('setting_id')->references('id')->on('settings')->onDelete('cascade');

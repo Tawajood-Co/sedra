@@ -24,6 +24,9 @@ class AuthController extends Controller
             'country_code'=>$request->country_code,
             'lang'=>$lang
         ]);
+        $user->otp=1234;
+        $user->save;
+
         $token=auth('user_api')->login($user);
         $data['token']=$token;
 
