@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Api\Company;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Http\Requests\companyapi\CompaignStore;
-use App\Models\{Campaign,Regiment,CampaignTranslation,CampaignOfficial};
+use App\Models\{Campaign,Regiment,CampaignTranslation,CampaignOfficial,UserRegiment};
 use App\Traits\{response,fileTrait};
 use Auth;
 
@@ -76,6 +76,13 @@ class CampainController extends Controller
         $compaines=Campaign::where('company_id',$company->id)->get();
         $data['data']['compaines']=$compaines;
         return $this->response(true,'get data success',$data);
+    }
+
+
+    public function booking_users(Request $request){
+      $Regiments =  Regiment::with('booking.users')->where('campaign_id',$request->campaign_id)->get();
+      $data['data']['Regiments']=$Regiments;
+      return $this->response(true,'get user booking successfuly',$data);
     }
 
 }

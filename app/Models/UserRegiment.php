@@ -12,4 +12,11 @@ class UserRegiment extends Model
     protected $table = 'user_regiments';
     protected $guarded = [];
     protected $hidden = [];
+
+
+    public function users()
+    {
+        return $this->hasMany(User::class ,'id' ,'user_id');
+    }
+
 }

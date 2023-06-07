@@ -3,7 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\User\Auth\AuthController;
-use App\Http\Controllers\Api\User\{BarcodeController,OmraVisaController};
+use App\Http\Controllers\Api\User\{BarcodeController,OmraVisaController,CampaignController};
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -33,5 +33,13 @@ Route::middleware('lang')->group(function(){
       Route::controller(OmraVisaController::class)->group(function(){
         Route::post('store/omra','store');
      });
+
+     Route::controller(CampaignController::class)->group(function(){
+       Route::Post('get/campaigns','get_campaigns');
+       Route::get('campaign/show/{campaign_id?}','show');
+       Route::post('book/compaign','book');
+     });
+
+
 });
 

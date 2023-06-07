@@ -23,4 +23,9 @@ class Regiment extends Model
     {
         return $this->belongsToMany(User::class , 'user_regiments' , 'regiment_id' , 'user_id' , 'id' , 'id');
     }
+
+    public function booking()
+    {
+        return $this->hasMany(UserRegiment::class);
+    }
 }
