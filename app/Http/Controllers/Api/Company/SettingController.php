@@ -26,7 +26,7 @@ class SettingController extends Controller
     public function update_notify(Request $request){
         $company=Auth::guard('company_api')->user();
         $company->update([
-            'notify'=>$request->lang
+            'notify'=>$request->notify
           ]);
           return $this->response(true,'notify updated successfuly');
 
