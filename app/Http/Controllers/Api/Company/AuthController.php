@@ -15,7 +15,7 @@ class AuthController extends Controller
     //
     use response,fileTrait;
     public function register(companyregister $request){
-       $logo=$this->MoveImage($request->logo,'uploads/companies/logos');
+       $logo=$this->MoveImage($request->logo,'uploads/companies/logo');
        $lang=$request->header('lang');
        $company=Company::create([
              'name'           =>$request->name,

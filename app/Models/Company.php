@@ -46,7 +46,7 @@ class Company extends Authenticatable implements JWTSubject
     }
 
     public function getLogoAttribute($value) {
-        return asset('uploads/companies/logos/'.$value);
+        return asset('uploads/companies/logo/'.$value);
     }
 
 
