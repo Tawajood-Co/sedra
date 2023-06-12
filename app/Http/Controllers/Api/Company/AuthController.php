@@ -15,7 +15,7 @@ class AuthController extends Controller
     //
     use response,fileTrait;
     public function register(companyregister $request){
-       $logo=$this->MoveImage($request->logo,'uploads/companies/logo');
+       $logo=$this->MoveImage($request->logo,'uploads/companies/logos');
        $lang=$request->header('lang');
        $company=Company::create([
              'name'           =>$request->name,
@@ -33,7 +33,7 @@ class AuthController extends Controller
                 'company_id'        =>$company->id
             ]);
         }
-        
+
         $token=auth('company_api')->login($company);
         $data['token']=$token;
 
