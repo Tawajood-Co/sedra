@@ -5,22 +5,33 @@ namespace App\Http\Controllers\Api\User\Auth;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Http\Requests\UserRequest;
+use App\Interfaces\NotificationRepositoryinterface;
 use App\Models\User;
-use App\Traits\response;
+use App\Traits\{response,fileTrait};
 use Validator;
+use Auth;
 
 class AuthController extends Controller
 {
     //
-    use response;
+    use response,fileTrait;
+
+    private NotificationRepositoryinterface $NotificationRepository;
+    public function __construct(NotificationRepositoryinterface $NotificationRepository)
+    {
+        $this->NotificationRepository = $NotificationRepository;
+    }
+
     public function Register(UserRequest $request){
         $lang=$request->header('lang');
+
+        $passport_img=$this->MoveImage($request->passport_img,'uploads/users/passport_img');
         $user=User::create([
             'name'=>$request->name,
             'password'=>$request->password,
             'phone'=>$request->phone,
             'passport'=>$request->passport,
-            'passport_img'=>$request->passport_img,
+            'passport_img'=>$passport_img,
             'country_code'=>$request->country_code,
             'lang'=>$lang
         ]);
@@ -111,6 +122,14 @@ class AuthController extends Controller
 
     }
 
+    public function logout(Request $request){
 
+         $this->NotificationRepository->delete_device_token('user',$request->device_token);
+         Auth::guard('user_api')->logout();
+         return response()->json([
+             'status' => true,
+             'message'=>'logout success',
+         ]);
+    }
 
 }

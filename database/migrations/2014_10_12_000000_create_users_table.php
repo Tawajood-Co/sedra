@@ -20,7 +20,8 @@ return new class extends Migration
             $table->string('country_code', 5);
             $table->string('password');
             $table->string('passport');
-            $table->string('passport_img');
+            $table->string('passport_img')->nullable();
+            $table->string('img')->nullable();
             $table->boolean('status')->default(true);
             $table->boolean('notify')->default(true);
             $table->string('lang', 10)->nullable();

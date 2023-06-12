@@ -2,7 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Api\Company\{AuthController,CampainController,ProfileController,SettingController};
+use App\Http\Controllers\Api\Company\{AuthController,CampainController,ProfileController,SettingController,NotificationController};
 use App\Http\Controllers\CountryController;
 /*
 |--------------------------------------------------------------------------
@@ -57,6 +57,13 @@ Route::middleware('lang')->group(function(){
           Route::get('get/about_us','get_aboutus');
           Route::get('get/terms','get_terms');
        });
+
+
+       Route::controller(NotificationController::class)->group(function(){
+        Route::Post('/create/token','create_device_token');
+
+       });
+
 
     });
 });

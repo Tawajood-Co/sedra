@@ -19,7 +19,7 @@ class SettingController extends Controller
         $company->update([
           'lang'=>$request->header('lang')
         ]);
-      return $this->response(true,'lang updated successfuly');
+        return $this->response(true,__('response.update_lang'));
     }
 
 
@@ -28,7 +28,7 @@ class SettingController extends Controller
         $company->update([
             'notify'=>$request->notify
           ]);
-          return $this->response(true,'notify updated successfuly');
+          return $this->response(true,__('response.update_notify'));
 
     }
 

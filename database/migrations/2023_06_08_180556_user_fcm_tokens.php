@@ -13,12 +13,11 @@ return new class extends Migration
      */
     public function up()
     {
-        //
-        Schema::create('user_tokens', function (Blueprint $table) {
+        Schema::create('users_fcm_tokens', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->text('fcm_token')->nullable();
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-            $table->string('fcm_token');
             $table->timestamps();
         });
     }

@@ -20,8 +20,14 @@ class User extends Authenticatable implements JWTSubject
         $this->attributes['password'] = Hash::make($value);
     }
 
+    public function setPassportImgAttribute($value) {
+
+        $this->attributes['passport_img'] = asset('uploads/users/passport_img/'.$value);
+
+    }
+
     /**
-     * The attributes that are mass assignable.
+     * The attributes that are mass assignable.  passportimg
      *
      * @var array<int, string>
      */
@@ -70,4 +76,14 @@ class User extends Authenticatable implements JWTSubject
     {
         return $this->belongsToMany(Regiment::class , 'user_regiments' , 'user_id' , 'regiment_id' , 'id' , 'id');
     }
+
+    // protected function passportimg(): Attribute
+    // {
+    //     return Attribute::make(
+    //         get: fn ($value) => asset('uploads/users'.$value)
+    //     );
+
+    // }
+
+
 }

@@ -20,6 +20,12 @@ class Campaign extends Model implements TranslatableContract
     protected $guarded = [];
     protected $hidden = ['translations'];
 
+
+    public function getImgAttribute($value) {
+        return asset('uploads/companies/campaigns/'.$value);
+    }
+
+
     public function company(): BelongsTo
     {
         return $this->belongsTo(Company::class , 'company_id' , 'id');
