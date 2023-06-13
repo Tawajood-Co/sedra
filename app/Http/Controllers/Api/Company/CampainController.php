@@ -19,6 +19,16 @@ class CampainController extends Controller
        if(count($request->regiment_days)!==count($request->regiment_dates)||count($request->regiment_dates)!=count($request->regiment_counts))
        return $this->response(false,'regmints array count not identical',null,422);
 
+       $personscount=0;
+       foreach($request->regiment_counts as $count){
+          $personscount+=(int)$count;
+       }
+
+       if($personscount>(int)$request->persons_count)
+       return $this->response(false,__('response.persons_count'),null,422);
+       // end validation
+
+
        $img=$this->MoveImage($request->img,'uploads/companies/campaigns');
        $company=Auth::guard('company_api')->user();
 
@@ -67,7 +77,7 @@ class CampainController extends Controller
             ]);
        }
 
-           return $this->response(true,'add copagin successfuly');
+       return $this->response(true,'add copagin successfuly');
 
     }
 

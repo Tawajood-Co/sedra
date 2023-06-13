@@ -65,4 +65,17 @@ class CampaignController extends Controller
 
         return $this->response(true,'you booked successfuly');
      }
+
+
+
+     public function filtercampign(Request $request){
+
+        $price=$request->price;
+        $rate=$request->rate;
+        //$re
+
+
+     }
+
+
 }

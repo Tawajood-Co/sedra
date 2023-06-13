@@ -47,9 +47,11 @@ Route::middleware('lang')->group(function(){
         });
 
         Route::controller(CampaignController::class)->group(function(){
-        Route::Post('get/campaigns','get_campaigns');
-        Route::get('campaign/show/{campaign_id?}','show');
-        Route::post('book/compaign','book');
+            Route::Post('get/campaigns','get_campaigns');
+            Route::get('campaign/show/{campaign_id?}','show');
+            Route::post('book/compaign','book');
+            Route::get('filter/campaign/{price?&rate?}','filtercampign');
+
         });
 
 

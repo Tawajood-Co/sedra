@@ -12,7 +12,12 @@ return [
      'register'       =>  'you register success',
      'add_qrcode'     =>   'form added successfuly',
      'update_lang'    =>   'lang updated successfuly',
-     'update_notify'  =>   'notification updated successfuly'
+     'update_notify'  =>   'notification updated successfuly',
+     'persons_count'  =>   'You have exceeded the limit of campign'
+
+
+
+
 ];
 
 

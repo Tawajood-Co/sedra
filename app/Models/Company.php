@@ -37,10 +37,6 @@ class Company extends Authenticatable implements JWTSubject
         return [];
     }
 
-
-
-
-
     public function setPasswordAttribute($value) {
         $this->attributes['password'] = Hash::make($value);
     }
