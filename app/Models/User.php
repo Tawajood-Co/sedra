@@ -21,7 +21,7 @@ class User extends Authenticatable implements JWTSubject
     }
 
     public function getImgAttribute($value){
-        if($img!=null)
+        if($value!=null)
         return asset('uploads/users/imgs/'.$value);
 
         return asset('uploads/users/default/default.png');
