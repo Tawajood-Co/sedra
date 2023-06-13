@@ -20,10 +20,15 @@ class User extends Authenticatable implements JWTSubject
         $this->attributes['password'] = Hash::make($value);
     }
 
-    public function setPassportImgAttribute($value) {
+    public function getImgAttribute($value){
+        if($img!=null)
+        return asset('uploads/users/imgs/'.$value);
 
-        $this->attributes['passport_img'] = asset('uploads/users/passport_img/'.$value);
+        return asset('uploads/users/default/default.png');
+    }
 
+    public function getPassportImgAttribute($value) {
+        return asset('uploads/users/passport_img/'.$value);
     }
 
     /**
