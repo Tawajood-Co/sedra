@@ -72,8 +72,24 @@ class CampaignController extends Controller
 
         $price=$request->price;
         $rate=$request->rate;
-        //$re
+        $city_id=$request->city_id;
 
+        $campaigns=Campaign::where('status',1)->where('city_id',$city_id)
+
+        ->when($price!=null,function($q)use($price){
+            return $q->where('single_price','<',$price);
+        })
+
+        ->when($rate!=null,function($q)use ($rate){
+            return $q->whereHas('company',function($q) use($rate) {
+                $q->where("rate",'>=',$rate);
+            });
+        })
+
+        ->get();
+
+        $data['data']['campaigns']=$campaigns;
+        return $this->response(true,'get compaigns successfuly',$data);
 
      }
 

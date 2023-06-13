@@ -14,10 +14,8 @@ return new class extends Migration
     public function up()
     {
         //
-        Schema::table('campaigns', function (Blueprint $table) {
-            $table->double('lat')->nullable();
-            $table->double('lng')->nullable();
-            $table->string('address')->nullable();
+        Schema::table('regiments', function (Blueprint $table) {
+          $table->date('cancellation_date')->nullable();
         });
     }
 

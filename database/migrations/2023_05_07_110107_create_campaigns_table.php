@@ -31,6 +31,9 @@ return new class extends Migration
             $table->boolean('distinct')->default(0);
             $table->bigInteger('company_id')->unsigned();
             $table->foreign('company_id')->references('id')->on('companies')->onDelete('cascade');
+            $table->double('lat')->nullable();
+            $table->double('lng')->nullable();
+            $table->string('address')->nullable();
             $table->timestamps();
         });
     }
