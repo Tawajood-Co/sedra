@@ -73,7 +73,8 @@ class CampainController extends Controller
                 'campaign_id'        =>$compaign->id,
                 'date'               =>$request->regiment_dates[$key],
                 'persons_count'      =>$request->regiment_counts[$key],
-                'available_places'   =>$request->regiment_counts[$key]
+                'available_places'   =>$request->regiment_counts[$key],
+                'cancellation_date'  =>$request->cancellation_date[$key]
             ]);
        }
 

@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Api\User\Auth;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Http\Requests\UserRequest;
-use App\Interfaces\NotificationRepositoryinterface;
+use App\Interfaces\NotificationRepositoryinterface; 
 use App\Models\User;
 use App\Traits\{response,fileTrait};
 use Validator;
