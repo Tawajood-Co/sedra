@@ -13,7 +13,7 @@ class CampaignController extends Controller
     //
     use response;
      public function get_campaigns(Request $request){
-        $campaigns=Campaign::where('status',1)
+        $campaigns=Campaign::with('company')->where('status',1)
         ->when($request->country_id!=null,function($q)use($request){
            return $q->where('country_id',$request->country_id);
         })
@@ -74,7 +74,7 @@ class CampaignController extends Controller
         $rate=$request->rate;
         $city_id=$request->city_id;
 
-        $campaigns=Campaign::where('status',1)->where('city_id',$city_id)
+        $campaigns=Campaign::with('company')->where('status',1)->where('city_id',$city_id)
 
         ->when($price!=null,function($q)use($price){
             return $q->where('single_price','<',$price);
