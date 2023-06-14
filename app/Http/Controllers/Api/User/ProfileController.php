@@ -44,12 +44,22 @@ class ProfileController extends Controller
             $passport_img=$user->passport_img;
             $img=$user->img;
 
+            if($request->passport_img!=null){
+
+                $passport_img=$this->MoveImage($request->passport_img,'uploads/users/passport_img');
+
+            }
+
+            if($request->img!=null){
+                $img=$this->MoveImage($request->img,'uploads/users/imgs/');
+
+            }
 
             $user->update([
                 'name'           =>$request->name,
                 'passport'       =>$request->passport,
-                'passport_img'   =>$request->passport_img,
-                'img'            =>$request->img
+                'passport_img'   =>$passport_img,
+                'img'            =>$img
              ]);
 
             if($request->phone!=$user->phone){
