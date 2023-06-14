@@ -5,8 +5,6 @@ namespace App\Providers;
 use Illuminate\Support\ServiceProvider;
 use App\Interfaces\NotificationRepositoryinterface;
 use App\Repositories\NotificationRepository;
-
-
 class AppServiceProvider extends ServiceProvider
 {
     /**
@@ -20,7 +18,6 @@ class AppServiceProvider extends ServiceProvider
             NotificationRepositoryInterface::class,
             NotificationRepository::class
         );
-
     }
 
     /**

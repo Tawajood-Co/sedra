@@ -71,6 +71,10 @@ Route::middleware('lang')->group(function(){
 
         Route::controller(ProfileController::class)->group(function(){
            Route::get('get/profile','index');
+           Route::post('update/profile','update');
+           Route::post('update/phone','updatephone');
+
+
         });
 
     });
