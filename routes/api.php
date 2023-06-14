@@ -51,7 +51,8 @@ Route::middleware('lang')->group(function(){
             Route::get('campaign/show/{campaign_id?}','show');
             Route::post('book/compaign','book');
             Route::get('filter/campaign/{price?&rate?}','filtercampign');
-
+            Route::get('my/campaigns','get_my_comapigns');
+            Route::get('show/my/campaign/{campaign_id?}','show_my_campaign');
         });
 
 

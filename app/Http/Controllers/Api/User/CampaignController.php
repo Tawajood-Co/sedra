@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\{Campaign,UserRegiment,Regiment};
 use App\Traits\{response,fileTrait};
 use Auth;
+use Carbon\Carbon;
 
 class CampaignController extends Controller
 {
@@ -93,5 +94,46 @@ class CampaignController extends Controller
 
      }
 
+
+
+     public function get_my_comapigns(Request $request){
+
+        $user=Auth::guard('user_api')->user();
+        $campaign_ids=UserRegiment::select('campaign_id')->where("user_id",$user->id)->pluck('campaign_id')->all();
+        $campaigns=Campaign::with('company')->find($campaign_ids);
+
+        $data['data']['campaigns']=$campaigns;
+
+        return $this->response(true,'get my compagins success',$data);
+     }
+
+
+     public function show_my_campaign(Request $request){
+
+        $currentDate = Carbon::now()->toDateString();
+        $campaign_id=$request->campaign_id;
+
+        $UserRegiment=UserRegiment::where("campaign_id",$campaign_id)->first();
+        $UserRegiment->cancelation=true;
+
+        $campaign=Campaign::with('regiments','company','campaignOfficial')->find($request->campaign_id);
+
+        //  select regiment
+        foreach($campaign->regiments as $regiment){
+              $regiment->selected=false;
+
+              if($regiment->id==$UserRegiment->id){
+                    $regiment->selected=true;
+                    // check if user can cancer his booking by check the avilable date of cancelation in his regiment
+                    if($regiment->cancellation_date <=  $currentDate)
+                    $UserRegiment->cancelation=false;
+              }
+        }
+
+        $data['campaign']=$campaign;
+        $data['UserRegiment']=$UserRegiment;
+
+        return $this->response(true,'get campign successfuly',$data);
+     }
 
 }
