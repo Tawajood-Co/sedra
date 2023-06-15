@@ -33,8 +33,8 @@ class CampaignController extends Controller
 
 
      public function show(Request $request){
-        $campaign=Campaign::with('regiments')->find($request->campaign_id);
-        $data['data']['compaign']=$campaign;
+        $campaign=Campaign::with('regiments','company')->find($request->campaign_id);
+        $data['compaign']=$campaign;
         return $this->response(true,'get compaign successfuly',$data);
      }
 
@@ -75,7 +75,7 @@ class CampaignController extends Controller
         $rate=$request->rate;
         $city_id=$request->city_id;
 
-        $campaigns=Campaign::with('company','company')->where('status',1)->where('city_id',$city_id)
+        $campaigns=Campaign::with('company')->where('status',1)->where('city_id',$city_id)
 
         ->when($price!=null,function($q)use($price){
             return $q->where('single_price','<',$price);
