@@ -75,7 +75,7 @@ class CampaignController extends Controller
         $rate=$request->rate;
         $city_id=$request->city_id;
 
-        $campaigns=Campaign::with('company')->where('status',1)->where('city_id',$city_id)
+        $campaigns=Campaign::with('company','company')->where('status',1)->where('city_id',$city_id)
 
         ->when($price!=null,function($q)use($price){
             return $q->where('single_price','<',$price);
