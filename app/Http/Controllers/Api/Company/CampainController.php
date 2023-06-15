@@ -85,14 +85,14 @@ class CampainController extends Controller
     public function get_compaines(Request $request){
         $company=Auth::guard('company_api')->user();
         $compaines=Campaign::with('company')->where('company_id',$company->id)->get();
-        $data['data']['compaines']=$compaines;
+        $data['compaines']=$compaines;
         return $this->response(true,'get data success',$data);
     }
 
 
     public function booking_users(Request $request){
       $Regiments =  Regiment::with('booking.users')->where('campaign_id',$request->campaign_id)->get();
-      $data['data']['Regiments']=$Regiments;
+      $data['Regiments']=$Regiments;
       return $this->response(true,'get user booking successfuly',$data);
     }
 

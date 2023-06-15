@@ -37,7 +37,7 @@ class SettingController extends Controller
    public function get_aboutus(Request $request){
       $setting= Setting::first();
       $about_us=$setting->about_us;
-      $data['data']['about_us']=$about_us;
+      $data['about_us']=$about_us;
       return $this->response(true,'get about us success',$data);
    }
 
@@ -45,7 +45,7 @@ class SettingController extends Controller
    public function get_terms(Request $request){
         $setting= Setting::first();
         $terms=$setting->terms;
-        $data['data']['terms']=$terms;
+        $data['terms']=$terms;
         return $this->response(true,'get about us success',$data);
    }
 

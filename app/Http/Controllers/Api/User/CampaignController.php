@@ -27,7 +27,7 @@ class CampaignController extends Controller
             });
          })
         ->get();
-        $data['data']['campaigns']=$campaigns;
+        $data['campaigns']=$campaigns;
         return $this->response(true,'get compaigns successfuly',$data);
      }
 
@@ -89,7 +89,7 @@ class CampaignController extends Controller
 
         ->get();
 
-        $data['data']['campaigns']=$campaigns;
+        $data['campaigns']=$campaigns;
         return $this->response(true,'get compaigns successfuly',$data);
 
      }
@@ -102,7 +102,7 @@ class CampaignController extends Controller
         $campaign_ids=UserRegiment::select('campaign_id')->where("user_id",$user->id)->pluck('campaign_id')->all();
         $campaigns=Campaign::with('company')->find($campaign_ids);
 
-        $data['data']['campaigns']=$campaigns;
+        $data['campaigns']=$campaigns;
 
         return $this->response(true,'get my compagins success',$data);
      }
