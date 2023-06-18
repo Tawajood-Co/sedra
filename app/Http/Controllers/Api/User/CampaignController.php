@@ -4,10 +4,13 @@ namespace App\Http\Controllers\Api\User;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\{Campaign,UserRegiment,Regiment};
+use App\Models\{Campaign,UserRegiment,Regiment,CompanyReview,Company};
 use App\Traits\{response,fileTrait};
 use Auth;
 use Carbon\Carbon;
+use Validator;
+use Exception;
+
 
 class CampaignController extends Controller
 {
@@ -75,7 +78,12 @@ class CampaignController extends Controller
         $rate=$request->rate;
         $city_id=$request->city_id;
 
-        $campaigns=Campaign::with('company')->where('status',1)->where('city_id',$city_id)
+        $campaigns=Campaign::with('company')->where('status',1)
+        ->where('country_id',$request->country_id)
+
+        ->when($city_id!=null,function($q)use($city_id){
+            return $q->where('city_id',$city_id);
+        })
 
         ->when($price!=null,function($q)use($price){
             return $q->where('single_price','<',$price);
@@ -134,6 +142,65 @@ class CampaignController extends Controller
         $data['UserRegiment']=$UserRegiment;
 
         return $this->response(true,'get campign successfuly',$data);
+     }
+
+
+     public function review_company(Request $request){
+
+
+        $validator =Validator::make($request->all(), [
+
+            'rate'         =>'required',
+            'review'       =>'required',
+            'company_id'   =>'required',
+
+        ]);
+
+        if ($validator->fails()) {
+                return response()->json([
+                    'message'=>$validator->messages()->first()
+                ],403);
+        }
+
+       try {
+            $user=Auth::guard('user_api')->user();
+            CompanyReview::create([
+               'rate'          =>$request->rate,
+               'review'        =>$request->review,
+               'company_id'    =>$request->company_id,
+               'user_id'       =>$user->id
+            ]);
+            $company=Company::find($request->company_id);
+
+             // number of reviews
+            $CompanyReviewcount=CompanyReview::where('company_id',$request->company_id)->count();
+
+            $total_rate=$company->total_rate+$request->rate;
+
+             // rate of company
+            $rate= $total_rate/$CompanyReviewcount;
+
+            $company->rate=$rate;
+
+            $company->total_rate=$total_rate;
+            $company->save();
+
+
+            return $this->response(true,'you make review successfuly');
+        }catch(\Exception $ex){
+             return $this->response(false,__('response.wrong'),null,419);
+        }
+     }
+
+     public function get_company_reviews(Request $request){
+
+        $company_id=$request->company_id;
+
+        $reviews=CompanyReview::where('company_id',$company_id)->get();
+
+        $data['reviews']=$reviews;
+
+        return $this->response(true,'get reviews successfuly',$data);
      }
 
 }

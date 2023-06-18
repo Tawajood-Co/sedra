@@ -26,7 +26,7 @@ class ProfileController extends Controller
         $user=Auth::guard('user_api')->user();
 
 
-        $validator =Validator::make($request->all(), [
+           $validator =Validator::make($request->all(), [
 
                 'country_code'   =>'required',
                 'passport'       =>'required',

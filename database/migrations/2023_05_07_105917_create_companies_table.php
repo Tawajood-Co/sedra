@@ -27,7 +27,7 @@ return new class extends Migration
             $table->string('otp')->nullable();
             $table->boolean('notify')->default(true);
             $table->double('rate',2,1)->nullable();
-            $table->integer('rate_count')->nullable();
+            $table->integer('total_rate')->nullable();
             $table->double('balance', 12, 2)->default(0.00);
             $table->timestamps();
         });

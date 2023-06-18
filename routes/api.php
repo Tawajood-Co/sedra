@@ -53,6 +53,8 @@ Route::middleware('lang')->group(function(){
             Route::get('filter/campaign/{price?&rate?}','filtercampign');
             Route::get('my/campaigns','get_my_comapigns');
             Route::get('show/my/campaign/{campaign_id?}','show_my_campaign');
+            Route::post('review/company','review_company');
+            Route::get('get/company/reviews/{comapny_id?}','get_company_reviews');
         });
 
 
