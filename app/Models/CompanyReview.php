@@ -11,9 +11,9 @@ class CompanyReview extends Model
     protected $table='company_reviews';
     protected $guarded=[];
 
-    public function users()
+    public function user()
     {
-        return $this->belongTo(User::class);
+        return $this->belongsTo(User::class);
     }
 
 }

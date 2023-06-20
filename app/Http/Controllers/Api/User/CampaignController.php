@@ -212,7 +212,7 @@ class CampaignController extends Controller
 
         $company_id=$request->company_id;
 
-        $reviews=CompanyReview::with('users')->where('company_id',$company_id)->get();
+        $reviews=CompanyReview::with('user')->where('company_id',$company_id)->get();
 
         $data['reviews']=$reviews;
 
