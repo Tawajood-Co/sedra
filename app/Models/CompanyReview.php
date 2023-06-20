@@ -10,4 +10,10 @@ class CompanyReview extends Model
     use HasFactory;
     protected $table='company_reviews';
     protected $guarded=[];
+
+    public function user()
+    {
+        return $this->belongTo(User::class);
+    }
+
 }
