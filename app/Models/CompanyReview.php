@@ -8,6 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 class CompanyReview extends Model
 {
     use HasFactory;
-    protected $table='comapny_reviews';
+    protected $table='company_reviews';
     protected $guarded=[];
 }

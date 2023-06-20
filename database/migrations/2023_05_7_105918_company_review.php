@@ -14,11 +14,14 @@ return new class extends Migration
     public function up()
     {
         //
-        Schema::create('comapny_reviews', function (Blueprint $table) {
+        Schema::create('company_reviews', function (Blueprint $table) {
             $table->bigIncrements('id');
-            
+
             $table->bigInteger('company_id')->unsigned();
             $table->foreign('company_id')->references('id')->on('companies')->onDelete('cascade');
+
+            $table->bigInteger('campaign_id')->unsigned();
+            $table->foreign('campaign_id')->references('id')->on('campaigns')->onDelete('cascade');
 
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');

@@ -117,6 +117,7 @@ class CampaignController extends Controller
 
 
      public function show_my_campaign(Request $request){
+        $user=Auth::guard('user_api')->user();
 
         $currentDate = Carbon::now()->toDateString();
         $campaign_id=$request->campaign_id;
@@ -125,6 +126,15 @@ class CampaignController extends Controller
         $UserRegiment->cancelation=true;
 
         $campaign=Campaign::with('regiments','company','campaignOfficial')->find($request->campaign_id);
+
+
+        // check if user make review for this campaign or not
+        $makereview=true;
+        $CompanyReview=CompanyReview::where(['user_id'=>$user->id,'campaign_id'=>$request->campaign_id])->first();
+        if($CompanyReview!=null)
+        $makereview=false;
+
+        $campaign->makereview=$makereview;
 
         //  select regiment
         foreach($campaign->regiments as $regiment){
@@ -153,6 +163,7 @@ class CampaignController extends Controller
             'rate'         =>'required',
             'review'       =>'required',
             'company_id'   =>'required',
+            'campaign_id'  =>'required',
 
         ]);
 
@@ -164,25 +175,30 @@ class CampaignController extends Controller
 
        try {
             $user=Auth::guard('user_api')->user();
+
+            $CompanyReview=CompanyReview::where(['user_id'=>$user->id,'campaign_id'=>$request->campaign_id])->first();
+            if($CompanyReview!=null)
+            return $this->response(false,'you already review this campaign',null,419);
+
             CompanyReview::create([
                'rate'          =>$request->rate,
                'review'        =>$request->review,
                'company_id'    =>$request->company_id,
-               'user_id'       =>$user->id
+               'user_id'       =>$user->id,
+               'campaign_id'   =>$request->campaign_id
             ]);
             $company=Company::find($request->company_id);
-
              // number of reviews
             $CompanyReviewcount=CompanyReview::where('company_id',$request->company_id)->count();
 
-            $total_rate=$company->total_rate+$request->rate;
 
+            $total_rate=$company->total_rate+$request->rate;
+            $company->total_rate=$total_rate;
+            $company->save();
              // rate of company
             $rate= $total_rate/$CompanyReviewcount;
 
             $company->rate=$rate;
-
-            $company->total_rate=$total_rate;
             $company->save();
 
 
