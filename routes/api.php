@@ -29,6 +29,11 @@ Route::middleware('lang')->group(function(){
         Route::post('sendotp','sendotp');
      });
 
+     Route::controller(ProductController::class)->group(function(){
+        Route::get('get/products/{type?}','get_products');
+        Route::get('get/product/{product_id?}','get_product');
+    });
+
 
      Route::middleware('UserApiAuth')->group(function(){
 
@@ -80,10 +85,7 @@ Route::middleware('lang')->group(function(){
 
 
 
-       Route::controller(ProductController::class)->group(function(){
-           Route::get('get/products/{type?}','get_products');
-           Route::get('get/product/{product_id?}','get_product');
-       });
+
 
     });
 
