@@ -17,6 +17,10 @@ class DatabaseSeeder extends Seeder
         $this->call(CountrySeeder::class);
         $this->call(CitySeeder::class);
         $this->call(SettingSeeder::class);
+        $this->call(product::class);
+        $this->call(product_translations::class);
+        $this->call(product_features::class);
+        $this->call(product_feature_translations::class);
         // \App\Models\User::factory(10)->create();
 
         // \App\Models\User::factory()->create([
