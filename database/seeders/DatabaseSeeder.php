@@ -18,6 +18,7 @@ class DatabaseSeeder extends Seeder
         $this->call(CitySeeder::class);
         $this->call(SettingSeeder::class);
         $this->call(product::class);
+        $this->call(product_imgs::class);
         $this->call(product_translations::class);
         $this->call(product_features::class);
         $this->call(product_feature_translation::class);

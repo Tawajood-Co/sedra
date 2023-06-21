@@ -5,7 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\User\Auth\AuthController;
 use App\Http\Controllers\Api\User\{BarcodeController,OmraVisaController,
     CampaignController,SettingController,NotificationController
-    ,ProfileController
+    ,ProfileController,ProductController
   };
 /*
 |--------------------------------------------------------------------------
@@ -76,9 +76,14 @@ Route::middleware('lang')->group(function(){
            Route::get('get/profile','index');
            Route::post('update/profile','update');
            Route::post('update/phone','updatephone');
-
-
         });
+
+
+
+       Route::controller(ProductController::class)->group(function(){
+           Route::get('get/products/{type?}','get_products');
+           Route::get('get/product/{product_id?}','get_product');
+       });
 
     });
 

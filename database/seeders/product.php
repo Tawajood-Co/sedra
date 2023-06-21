@@ -19,6 +19,7 @@ class product extends Seeder
         for($i=0 ; $i<3; $i++){
             Productmodel::create([
                 'type'=>'woman',
+                'main_img' =>'woman_cloth.jpg',
                 'price'=>120+$i,
                 'count'=>50
              ]);
@@ -26,6 +27,7 @@ class product extends Seeder
         for($i=0 ; $i<3; $i++){
             Productmodel::create([
                'type'=>'man',
+               'main_img' =>'man_cloth.jpg',
                'price'=>120+$i,
                'count'=>50
             ]);

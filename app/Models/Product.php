@@ -22,4 +22,14 @@ class Product extends Model implements TranslatableContract
     {
         return $this->hasMany(ProductFeature::class , 'product_id' , 'id');
     }
+
+    public function imgs(): HasMany
+    {
+        return $this->hasMany(ProductImg::class , 'product_id' , 'id');
+    }
+
+    public function getMainImgAttribute($value){
+
+        return asset('uploads/products/main_imgs/'.$value);
+    }
 }
