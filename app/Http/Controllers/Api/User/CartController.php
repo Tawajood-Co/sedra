@@ -39,4 +39,18 @@ class CartController extends Controller
         }
         return $this->response(true,'product add to cart successfuly');
     }
+
+
+    public function remove_item(Request $request){
+
+        
+    }
+
+    public function increase_item(){
+
+    }
+
+    public function decrease_item(){
+
+    }
 }

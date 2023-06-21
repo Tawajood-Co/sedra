@@ -40,8 +40,10 @@ class OrderController extends Controller
                      'quantity'     => $item->quantity,
                      'price'        =>$item->price
                 ]);
+                $item->delete();
             }
-
+             $cart->total=0;
+             $cart->save();
 
              DB::commit();
              return $this->response(true,'you create order successfuly');
