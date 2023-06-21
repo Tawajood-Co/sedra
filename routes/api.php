@@ -5,7 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\User\Auth\AuthController;
 use App\Http\Controllers\Api\User\{BarcodeController,OmraVisaController,
     CampaignController,SettingController,NotificationController
-    ,ProfileController,ProductController
+    ,ProfileController,ProductController,CartController,OrderController
   };
 /*
 |--------------------------------------------------------------------------
@@ -84,7 +84,16 @@ Route::middleware('lang')->group(function(){
         });
 
 
+        Route::controller(CartController::class)->group(function(){
+           Route::get('get/cart','get_cart');
+           Route::post('add/to/cart','store_cart_item');
+           Route::get('get/cart','get_cart');
+        });
 
+
+        Route::controller(OrderController::class)->group(function(){
+            Route::post('create/order','store');
+        });
 
 
     });

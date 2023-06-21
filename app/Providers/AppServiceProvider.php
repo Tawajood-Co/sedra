@@ -3,8 +3,8 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
-use App\Interfaces\NotificationRepositoryinterface;
-use App\Repositories\NotificationRepository;
+use App\Interfaces\{NotificationRepositoryinterface,CartRepositoryInterface};
+use App\Repositories\{NotificationRepository,CartRepository};
 class AppServiceProvider extends ServiceProvider
 {
     /**
@@ -14,10 +14,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->app->bind(
-            NotificationRepositoryInterface::class,
-            NotificationRepository::class
-        );
+        $this->app->bind(NotificationRepositoryInterface::class,NotificationRepository::class);
+        $this->app->bind(CartRepositoryInterface::class,CartRepository::class);
     }
 
     /**

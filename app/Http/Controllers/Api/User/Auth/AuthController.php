@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Api\User\Auth;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Http\Requests\UserRequest;
-use App\Interfaces\NotificationRepositoryinterface; 
+use App\Interfaces\{NotificationRepositoryinterface,CartRepositoryInterface};
 use App\Models\User;
 use App\Traits\{response,fileTrait};
 use Validator;
@@ -17,9 +17,13 @@ class AuthController extends Controller
     use response,fileTrait;
 
     private NotificationRepositoryinterface $NotificationRepository;
-    public function __construct(NotificationRepositoryinterface $NotificationRepository)
+    public function __construct(
+        NotificationRepositoryinterface $NotificationRepository,
+        CartRepositoryInterface         $cartRepository
+      )
     {
         $this->NotificationRepository = $NotificationRepository;
+        $this->cartRepository         = $cartRepository;
     }
 
     public function Register(UserRequest $request){
@@ -35,6 +39,7 @@ class AuthController extends Controller
             'country_code'=>$request->country_code,
             'lang'=>$lang
         ]);
+        $this->cartRepository->store_cart($user);
         $user->otp=1234;
         $user->save;
 
