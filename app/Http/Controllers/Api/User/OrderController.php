@@ -29,7 +29,10 @@ class OrderController extends Controller
                 'order_id'       =>$order->id,
                 'phone'          =>$request->phone,
                 'country_code'   =>$request->country_code,
-                'note'           =>$request->note
+                'note'           =>$request->note,
+                'lat'            =>$request->lat,
+                'lng'            =>$request->lng,
+                'address'        =>$request->adress
             ]);
 
             $cart=Cart::where('user_id',$user->id)->first();
