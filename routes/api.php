@@ -88,6 +88,9 @@ Route::middleware('lang')->group(function(){
            Route::get('get/cart','get_cart');
            Route::post('add/to/cart','store_cart_item');
            Route::get('get/cart','get_cart');
+           Route::get('increase/item/{product_id?}','increase_item');
+           Route::get('decrease/item/{product_id?}','decrease_item');  //
+           Route::get('remove/item/{product_id?}','remove_item');
         });
 
 
