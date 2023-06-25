@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Api\User;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\{Order,OrderDetail,OrderItem,Cart,CartItem};
+use App\Models\{Order,OrderDetail,OrderItem,Cart,CartItem,Bank,BankTransfare};
 use Illuminate\Support\Facades\DB;
 use Auth;
 use App\Traits\{response,fileTrait};
@@ -13,11 +13,18 @@ use App\Traits\{response,fileTrait};
 class OrderController extends Controller
 {
     //
-    use response;
+    use response,fileTrait;
     public function store(Request $request){
         try{
             $user=Auth::guard('user_api')->user();
             DB::beginTransaction();
+               // if user pay by wallet
+             if($request->payment_type==1){
+                if($user->wallet<$request->price)
+                return $this->response(false,'you have not enought mony',null,406);
+                $user->wallet=$user->walle-$request->price;
+                $user->save();
+             }
             $order=Order::create([
                  'user_id'                  =>$user->id,
                  'price_before_discount'    =>$request->price,
@@ -49,9 +56,32 @@ class OrderController extends Controller
              $cart->save();
 
              DB::commit();
-             return $this->response(true,'you create order successfuly');
+             return $this->response(true,'you create order successfuly order is brebared');
         }catch(\Exception $ex){
           return $this->response(false,__('response.wrong'),null,419);
+        }
+    }
+
+    public function get_banks(Request $request){
+       $data['banks']=Bank::get();
+       return $this->response(true,'get banks successfuly',$data);
+    }
+
+    public function bank_transfare(Request $request){
+
+        try{
+            $user=Auth::guard('user_api')->user();
+            $img=$this->MoveImage($request->img,'uploads/users/banktransfare');
+            BankTransfare::create([
+               'bank_id' =>$request->bank_id,
+               'img'     =>$img,
+               'user_id' =>$user->id
+            ]);
+            return $this->response(true,__('response.success'));
+
+        }catch(\Exception $ex){
+            return $this->response(false,__('response.wrong'),null,419);
+
         }
     }
 }

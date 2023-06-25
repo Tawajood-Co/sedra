@@ -16,6 +16,7 @@ return new class extends Migration
         //
         Schema::create('orders', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->boolean('confirmation')->default(false);
             $table->bigInteger('user_id')->unsigned();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->bigInteger('voucher_id')->unsigned()->nullable();
@@ -23,6 +24,7 @@ return new class extends Migration
             $table->double('price_after_discount')->default(0);
             $table->double('price_before_discount')->default(0);
             $table->Integer('payment_type')->default(0)->comment('1 wallet  2 bank    3 visa');
+            $table->Integer('status')->default(0)->comment('1  request is done  // 2 Processing in progress  // 3 delivery in process //   4 completed');
             $table->timestamps();
         });
     }
