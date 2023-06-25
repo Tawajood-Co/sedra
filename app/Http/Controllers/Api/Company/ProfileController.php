@@ -91,7 +91,7 @@ class ProfileController extends Controller
     public function get_reviews(){
 
         $company=Auth::guard('company_api')->user();
-        $reviews=CompanyReview::where('company_id',$company->id)->get();
+        $reviews=CompanyReview::where('company_id',$company->id)->with('user')->get();
         $data['reviews']=$reviews;
         return $this->response(true,'get reviews success',$data);
 
