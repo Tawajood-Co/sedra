@@ -173,7 +173,7 @@ class CampaignController extends Controller
                 ],403);
         }
 
-       try {
+    //    try {
             $user=Auth::guard('user_api')->user();
 
             $CompanyReview=CompanyReview::where(['user_id'=>$user->id,'campaign_id'=>$request->campaign_id])->first();
@@ -203,9 +203,9 @@ class CampaignController extends Controller
 
 
             return $this->response(true,'you make review successfuly');
-        }catch(\Exception $ex){
-             return $this->response(false,__('response.wrong'),null,419);
-        }
+        // }catch(\Exception $ex){
+        //      return $this->response(false,__('response.wrong'),null,419);
+        // }
      }
 
      public function get_company_reviews(Request $request){
@@ -215,7 +215,7 @@ class CampaignController extends Controller
         $reviews=CompanyReview::with(['user'=>function($q){
          $q->select('name','id')->get();
         },'company'=>function($q){
-            $q->select('name','id','img','rate')->get();
+            $q->select('name','id','logo','rate')->get();
         }])->where('company_id',$company_id)->get();
 
         $data['reviews']=$reviews;
