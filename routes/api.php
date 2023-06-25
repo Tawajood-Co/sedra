@@ -5,7 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\User\Auth\AuthController;
 use App\Http\Controllers\Api\User\{BarcodeController,OmraVisaController,
     CampaignController,SettingController,NotificationController
-    ,ProfileController,ProductController,CartController,OrderController
+    ,ProfileController,ProductController,CartController,OrderController,WalletController
   };
 /*
 |--------------------------------------------------------------------------
@@ -98,6 +98,12 @@ Route::middleware('lang')->group(function(){
             Route::post('create/order','store');
         });
 
+
+
+        Route::controller(WalletController::class)->group(function(){
+            Route::get('get/wallet','get_wallet');
+            Route::post('charge/wallet','charge_wallet');
+        });
 
     });
 
