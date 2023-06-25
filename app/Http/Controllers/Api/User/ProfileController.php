@@ -9,7 +9,7 @@ use App\Traits\{response,fileTrait};
 use Validator;
 use Auth;
 use Illuminate\Contracts\Validation\Rule;
-
+use Hash;
 class ProfileController extends Controller
 {
     //
@@ -102,6 +102,30 @@ class ProfileController extends Controller
         }else{
             return  $this->response(false,'wrong code try again later',null,403);
         }
+
+    }
+
+
+    public function update_password(Request $request){
+        $validator =Validator::make($request->all(), [
+            'old_password'          =>  'required',
+            'password'              => 'required|min:6|max:50|confirmed',
+            'password_confirmation' => 'required|max:50|min:6',
+          ]);
+          if ($validator->fails()) {
+           return response()->json([
+               'message'=>$validator->messages()->first()
+           ],403);
+           }
+           $user=Auth::guard('user_api')->user();
+           if(!Hash::check($request->old_password, $user->password))
+           return $this->response(false, "The specified password does not match the old password");
+
+           $user->update([
+              'password'=>$request->password,
+           ]);
+
+           return $this->response(true,'password updated successfuly');
 
     }
 

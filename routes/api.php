@@ -81,6 +81,7 @@ Route::middleware('lang')->group(function(){
            Route::get('get/profile','index');
            Route::post('update/profile','update');
            Route::post('update/phone','updatephone');
+           Route::post('update/password','update_password');
         });
 
 
