@@ -37,7 +37,7 @@ class CampaignController extends Controller
 
      public function show(Request $request){
         $campaign=Campaign::with('regiments','company')->find($request->campaign_id);
-        $data['compaign']=$campaign;
+        $data['campaign']=$campaign;
         return $this->response(true,'get compaign successfuly',$data);
      }
 
