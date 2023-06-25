@@ -4,7 +4,8 @@ namespace App\Http\Controllers\Api\User;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\{Campaign,UserRegiment,Regiment,CompanyReview,Company};
+use App\Models\{Campaign,UserRegiment,Regiment,CompanyReview,Company,CompanyReport};
+use Illuminate\Support\Facades\DB;
 use App\Traits\{response,fileTrait};
 use Auth;
 use Carbon\Carbon;
@@ -173,7 +174,7 @@ class CampaignController extends Controller
                 ],403);
         }
 
-    //    try {
+       try {
             $user=Auth::guard('user_api')->user();
 
             $CompanyReview=CompanyReview::where(['user_id'=>$user->id,'campaign_id'=>$request->campaign_id])->first();
@@ -203,9 +204,9 @@ class CampaignController extends Controller
 
 
             return $this->response(true,'you make review successfuly');
-        // }catch(\Exception $ex){
-        //      return $this->response(false,__('response.wrong'),null,419);
-        // }
+        }catch(\Exception $ex){
+             return $this->response(false,__('response.wrong'),null,419);
+        }
      }
 
      public function get_company_reviews(Request $request){
@@ -221,6 +222,28 @@ class CampaignController extends Controller
         $data['reviews']=$reviews;
 
         return $this->response(true,'get reviews successfuly',$data);
+     }
+
+
+     public function create_report(Request $request){
+
+        try{
+            DB::beginTransaction();
+
+            $user=Auth::guard('user_api')->user();
+            $company_id=$request->company_id;
+            CompanyReport::create([
+               'user_id'      =>$user->id,
+               'company_id'   =>$company_id,
+               'report'       =>$request->report
+            ]);
+            return $this->response(true,__('response.success'));
+
+            DB::commit();
+        }catch(\Exception $ex){
+            return $this->response(false,__('response.wrong'),null,419);
+        }
+
      }
 
 }

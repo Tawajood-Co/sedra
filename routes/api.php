@@ -60,6 +60,7 @@ Route::middleware('lang')->group(function(){
             Route::get('show/my/campaign/{campaign_id?}','show_my_campaign');
             Route::post('review/company','review_company');
             Route::get('get/company/reviews/{comapny_id?}','get_company_reviews');
+            Route::post('report/company','create_report');
         });
 
 
@@ -82,6 +83,7 @@ Route::middleware('lang')->group(function(){
            Route::post('update/profile','update');
            Route::post('update/phone','updatephone');
            Route::post('update/password','update_password');
+
         });
 
 

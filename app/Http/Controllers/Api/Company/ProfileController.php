@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Api\Company;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Http\Requests\companyapi\updateprofille;
-use App\Models\{Company,CompanyBankAccount,Setting};
+use App\Models\{Company,CompanyBankAccount,Setting,CompanyReview};
 use Validator;
 use Auth;
 use Hash;
@@ -86,5 +86,16 @@ class ProfileController extends Controller
         $data['contact_us']=$contact_us;
         return $this->response(true,'get contact success',$data);
     }
-    
+
+
+    public function get_reviews(){
+
+        $company=Auth::guard('company_api')->user();
+        $reviews=CompanyReview::where('company_id',$company->id)->get();
+        $data['reviews']=$reviews;
+        return $this->response(true,'get reviews success',$data);
+
+    }
+
+
 }

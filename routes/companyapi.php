@@ -48,6 +48,7 @@ Route::middleware('lang')->group(function(){
             Route::post('change/password','changepassword');
             Route::post('update/profile','updateprofile');
             Route::get('get/contact','contactus');
+            Route::get('get/reviews','get_reviews');
 
         });
 
