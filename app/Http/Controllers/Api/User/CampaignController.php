@@ -215,7 +215,7 @@ class CampaignController extends Controller
         $reviews=CompanyReview::with(['user'=>function($q){
          $q->select('name','id')->get();
         },'company'=>function($q){
-            $q->select('name','id')->get();
+            $q->select('name','id','img','rate')->get();
         }])->where('company_id',$company_id)->get();
 
         $data['reviews']=$reviews;
