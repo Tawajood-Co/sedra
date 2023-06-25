@@ -61,6 +61,7 @@ Route::middleware('lang')->group(function(){
             Route::post('review/company','review_company');
             Route::get('get/company/reviews/{comapny_id?}','get_company_reviews');
             Route::post('report/company','create_report');
+            Route::post('cancel/campaign','cancel');
         });
 
 

@@ -246,4 +246,41 @@ class CampaignController extends Controller
 
      }
 
+
+     public function cancel(Request $request){
+        $validator =Validator::make($request->all(), [
+            'regiment_id'  =>'required',
+        ]);
+
+        if ($validator->fails()) {
+                return response()->json([
+                    'message'=>$validator->messages()->first()
+                ],403);
+        }
+        try{
+            DB::beginTransaction();
+
+            $user=Auth::guard('user_api')->user();
+            $UserRegiment=UserRegiment::where(['user_id'=>$user->id,'regiment_id'=>$request->regiment_id])->first();
+            // if($UserRegiment==null)
+            // return $this->response(false,'not difined',null,404);
+            $regmint=Regiment::find($request->regiment_id);
+            if(Carbon::now()->format('Y-m-d')>$regmint->cancellation_date)
+            return $this->response(false,__('response.expire_time'),null,406);
+            $user->wallet=$user->wallet+$UserRegiment->price;
+            $user->save();
+            $regmint->available_places=$regmint->available_places+$UserRegiment->number;
+            $regmint->save();
+            $campaign=Campaign::find($UserRegiment->campaign_id);
+            $campaign->available_places=$campaign->available_places+$UserRegiment->number;
+            $campaign->save();
+            $UserRegiment->delete();
+            DB::commit();
+            return $this->response(true,__('response.success'));
+         }catch(\Exception $ex){
+            return $this->response(false,__('response.wrong'),null,419);
+        }
+
+     }
+
 }

@@ -16,7 +16,8 @@ return [
      'persons_count'  =>   'You have exceeded the limit of campign',
      'wrong'          =>   'some thing error we will fix it as soon as possible',
      'item_not_found' =>   'this item not found',
-     'success'         =>   'operation accomplished successfully',
+     'success'        =>   'operation accomplished successfully',
+     'expire_time'    =>   'cancellation deadline has expired'
 
 
 
