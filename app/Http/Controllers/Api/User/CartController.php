@@ -9,7 +9,7 @@ use App\Interfaces\{CartRepositoryInterface};
 use Illuminate\Support\Facades\DB;
 
 use App\Traits\{response,fileTrait};
-use App\Models\{Cart,CartItem};
+use App\Models\{Cart,CartItem,Product};
 
 class CartController extends Controller
 {
@@ -30,13 +30,13 @@ class CartController extends Controller
     public function store_cart_item(Request $request){
         $user=Auth::guard('user_api')->user();
         $cart=Cart::where('user_id',$user->id)->first();
-        try{
+        // try{
           DB::beginTransaction();
           $this->CartRepository->store_cart_item($user->id,$cart,$request->products);
           DB::commit();
-        }catch(\Exception $ex){
-          return $this->response(false,__('response.wrong'),null,419);
-        }
+        // }catch(\Exception $ex){
+        //   return $this->response(false,__('response.wrong'),null,419);
+        // }
         return $this->response(true,'product add to cart successfuly');
     }
 
@@ -71,12 +71,15 @@ class CartController extends Controller
         DB::beginTransaction();
         $user=Auth::guard("user_api")->user();
         $cart=Cart::where('user_id',$user->id)->first();
+        $product=Product::find($request->product_id);
 
         $cart_item=CartItem::where(['cart_id'=>$cart->id,'product_id'=>$request->product_id])->first();
         $price=$cart_item->price/$cart_item->quantity;
 
         // update cart items value
         $cart_item->quantity=$cart_item->quantity+1;
+        if($cart_item->quantity>$product->count)
+        return $this->response(false,'you skiped allowed limit',null,406);
         $cart_item->price=$cart_item->price+$price;
         $cart_item->save();
 
@@ -106,9 +109,12 @@ class CartController extends Controller
 
             // update cart items value
             $cart_item->quantity=$cart_item->quantity-1;
-            $cart_item->price=$cart_item->price-$price;
-            $cart_item->save();
-
+            if($cart_item->quantity==0){
+                $cart_item->delete();
+            }else{
+                $cart_item->price=$cart_item->price-$price;
+                $cart_item->save();
+            }
             // update cart value
             $cart->total= $cart->total-$price;
             $cart->save();
