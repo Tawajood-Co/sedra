@@ -53,10 +53,10 @@ class NotificationRepository implements NotificationRepositoryinterface
 
 
 
-   public function sendnotification($type,$id,$title,$body,$notificationtype,$key=null,$data=null){
+   public function sendnotification($type,$id,$title,$body){
     $SERVER_API_KEY ='AAAAt88dQ6g:APA91bHO_XG9KUHcXk0FTBbi4KiJBTgGgQF-kVh9LdtpUx_XxjOPSdgrS62Db3Vvbsz9wqxgOF4KonhcSXKNYL6nZaGJVnILycwnmeStA3dOSPX_N5RkOOCUi4mOJ_uXVXv83rohpawf';
     if($type=='user'){
-    
+
     }
     if($type=='company'){
         // check if user open notification setting
