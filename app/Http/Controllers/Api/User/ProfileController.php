@@ -17,7 +17,7 @@ class ProfileController extends Controller
 
     public function index(){
        $user=Auth::guard('user_api')->user();
-       $data['profile_info']=User::find(1);
+       $data['profile_info']=User::find($user->id);
        return $this->response(true,'get user success',$data);
     }
 
