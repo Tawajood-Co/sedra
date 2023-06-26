@@ -56,26 +56,7 @@ class NotificationRepository implements NotificationRepositoryinterface
    public function sendnotification($type,$id,$title,$body,$notificationtype,$key=null,$data=null){
     $SERVER_API_KEY ='AAAAt88dQ6g:APA91bHO_XG9KUHcXk0FTBbi4KiJBTgGgQF-kVh9LdtpUx_XxjOPSdgrS62Db3Vvbsz9wqxgOF4KonhcSXKNYL6nZaGJVnILycwnmeStA3dOSPX_N5RkOOCUi4mOJ_uXVXv83rohpawf';
     if($type=='user'){
-        $order_id=null;
-        if($data!=null){
-            $order_id=$data['order_id'];
-        }
-        $ids=Usernotifytype::where('user_id',$id)->where('notificationtype_id',$notificationtype)->where('status','1')->pluck('user_id')->all();
-        if(empty($ids)){
-            return true;
-        }
-        $userdevicetokens=UserDeviceToken::where('user_id',$id)->pluck('device_token')->all();
-            $data = [
-                "registration_ids" => $userdevicetokens,
-                "notification" => [
-                    "title" => $title,
-                    "body" => $body,
-                ],
-                "data"=>[
-                   'key'=>$key,
-                   'order_id'=>$order_id
-                ]
-            ];
+    
     }
     if($type=='company'){
         // check if user open notification setting

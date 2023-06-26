@@ -18,8 +18,10 @@ return [
      'item_not_found' =>   'this item not found',
      'success'        =>   'operation accomplished successfully',
      'expire_time'    =>   'cancellation deadline has expired',
-     'Admin_check'     =>   'Admin will check your request'
-
+     'Admin_check'     =>   'Admin will check your request',
+     'booking_title'   =>   'He has booked a campaign',
+     'booking_body1'    =>   'has booked',
+     'booking_body2'   =>   'your campaign',
 ];
 
 

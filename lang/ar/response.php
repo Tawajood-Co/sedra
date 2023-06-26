@@ -18,7 +18,11 @@ return [
      'item_not_found'  =>   'هذا العنصر غير متاح',
      'success'         =>   'تمت العمليه بنجاح',
      'expire_time'     =>   'انتهي موعد الغاء الحجز',
-     'Admin_check'     =>   'المشرف سوف يراجع طلبك'
+     'Admin_check'     =>   'المشرف سوف يراجع طلبك',
+     'booking_title'   =>   'لقد قام عميل بحجز حملتك',
+     'booking_body1'    =>   ' قام  ',
+     'booking_body2'   =>   'بحجز حملتك',
+
 ];
 
 

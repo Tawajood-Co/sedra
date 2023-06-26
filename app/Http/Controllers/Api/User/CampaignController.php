@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api\User;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\{Campaign,UserRegiment,Regiment,CompanyReview,Company,CompanyReport};
+use App\Interfaces\{NotificationRepositoryinterface,CartRepositoryInterface};
 use Illuminate\Support\Facades\DB;
 use App\Traits\{response,fileTrait};
 use Auth;
@@ -17,6 +18,12 @@ class CampaignController extends Controller
 {
     //
     use response;
+
+    public function __construct(NotificationRepositoryinterface $NotificationRepository)
+    {
+        $this->NotificationRepository = $NotificationRepository;
+    }
+
      public function get_campaigns(Request $request){
         $campaigns=Campaign::with('company')->where('status',1)
         ->when($request->country_id!=null,function($q)use($request){
@@ -67,6 +74,8 @@ class CampaignController extends Controller
 
          $Regiment->available_places=$Regiment->available_places-$request->number;
          $Regiment->save();
+
+         $this->NotificationRepository->sendnotification('company',$campaign->company_id,__('response.booking_title'),__('response.booking_body1').$user->name.__('response.booking_body2'));
 
         return $this->response(true,'you booked successfuly');
      }

@@ -39,7 +39,8 @@ class OrderController extends Controller
                 'note'           =>$request->note,
                 'lat'            =>$request->lat,
                 'lng'            =>$request->lng,
-                'address'        =>$request->adress
+                'address'        =>$request->address,
+                'name'           =>$request->name
             ]);
 
             $cart=Cart::where('user_id',$user->id)->first();
@@ -88,16 +89,16 @@ class OrderController extends Controller
 
     public function get_orders(Request $request){
 
-    //    try{
+       try{
         DB::beginTransaction();
         $user=Auth::guard("user_api")->user();
         $orders=Order::with(['detailes','items.product'])->where('user_id',$user->id)->paginate(20);
         return $orders;
         DB::commit();
         return $this->response(true,__('response.success'));
-        // }catch(\Exception $ex){
-        //     return $this->response(false,__('response.wrong'),null,419);
-        // }
+        }catch(\Exception $ex){
+            return $this->response(false,__('response.wrong'),null,419);
+        }
 
     }
 }
