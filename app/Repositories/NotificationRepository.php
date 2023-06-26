@@ -60,7 +60,7 @@ class NotificationRepository implements NotificationRepositoryinterface
     }
     if($type=='company'){
         // check if user open notification setting
-        $userdevicetokens=CompanyDeviceToken::where('fcm_token',$token)->pluck('fcm_token')->all();
+        $userdevicetokens=CompanyDeviceToken::where('company_id',$id)->pluck('fcm_token')->all();
         $data = [
             "registration_ids" => $userdevicetokens,
             "notification"=>[
