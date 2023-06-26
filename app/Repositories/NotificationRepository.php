@@ -66,10 +66,11 @@ class NotificationRepository implements NotificationRepositoryinterface
             "notification"=>[
                 "title" => $title,
                 "body" => $body
-            ],
-            "data"=>[
+            ]
+            // ,
+            // "data"=>[
 
-            ],
+            // ],
 
         ];
     }
