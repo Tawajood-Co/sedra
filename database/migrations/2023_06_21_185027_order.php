@@ -24,7 +24,7 @@ return new class extends Migration
             $table->double('price_after_discount')->default(0);
             $table->double('price_before_discount')->default(0);
             $table->Integer('payment_type')->default(0)->comment('1 wallet  2 bank    3 visa');
-            $table->Integer('status')->default(0)->comment('1  request is done  // 2 Processing in progress  // 3 delivery in process //   4 completed');
+            $table->Integer('status')->default(1)->comment('1  request is done  // 2 Processing in progress  // 3 delivery in process //   4 completed');
             $table->timestamps();
         });
     }

@@ -103,6 +103,7 @@ Route::middleware('lang')->group(function(){
             Route::post('create/order','store');
             Route::get('get/banks','get_banks');
             Route::post('bank/transfare','bank_transfare');
+            Route::get('get/orders','get_orders');
         });
 
 

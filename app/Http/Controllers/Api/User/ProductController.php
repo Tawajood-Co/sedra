@@ -33,7 +33,6 @@ class ProductController extends Controller
         $data['products']= Product::with('productFeatures','imgs')
         ->where('price','<',$request->price)
         ->where('type',$request->type)->get();
-      
         return $this->response(true,'get product successfuly',$data);
     }
 

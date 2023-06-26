@@ -46,6 +46,7 @@ class OrderController extends Controller
             $cartitems=CartItem::where('cart_id',$cart->id)->get();
             foreach($cartitems as $item){
                 OrderItem::create([
+                     'order_id'       =>$order->id,
                      'product_id'   => $item->product_id,
                      'quantity'     => $item->quantity,
                      'price'        =>$item->price
@@ -83,5 +84,20 @@ class OrderController extends Controller
             return $this->response(false,__('response.wrong'),null,419);
 
         }
+    }
+
+    public function get_orders(Request $request){
+
+    //    try{
+        DB::beginTransaction();
+        $user=Auth::guard("user_api")->user();
+        $orders=Order::with(['detailes','items'])->where('user_id',$user->id)->paginate(20);
+        return $orders;
+        DB::commit();
+        return $this->response(true,__('response.success'));
+        // }catch(\Exception $ex){
+        //     return $this->response(false,__('response.wrong'),null,419);
+        // }
+
     }
 }
