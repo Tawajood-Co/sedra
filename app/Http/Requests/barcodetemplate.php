@@ -30,9 +30,9 @@ class barcodetemplate extends FormRequest
     public function rules()
     {
         return [
-            'name'                  => 'required|unique:users',
-            'phone'                 => 'required|unique:users',
-            'passport'              => 'required|unique:users',
+            'name'                  => 'required',
+            'phone'                 => 'required',
+            'passport'              => 'required',
             'passport_img'          => 'required',
             'country_code'          => 'required'
         ];
