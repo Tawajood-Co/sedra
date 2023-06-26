@@ -23,7 +23,7 @@ return new class extends Migration
             $table->string('phone')->nullable();
             $table->double('lat')->nullable();
             $table->double('lng')->nullable();
-            $table->double('address')->nullable();
+            $table->string('address')->nullable();
             $table->text('note')->nullable();
             $table->timestamps();
         });
