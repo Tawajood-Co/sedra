@@ -15,7 +15,7 @@ class OrderController extends Controller
     //
     use response,fileTrait;
     public function store(Request $request){
-        try{
+        // try{
             $user=Auth::guard('user_api')->user();
             DB::beginTransaction();
                // if user pay by wallet
@@ -59,9 +59,9 @@ class OrderController extends Controller
 
              DB::commit();
              return $this->response(true,'you create order successfuly order is brebared');
-        }catch(\Exception $ex){
-          return $this->response(false,__('response.wrong'),null,419);
-        }
+        // }catch(\Exception $ex){
+        //   return $this->response(false,__('response.wrong'),null,419);
+        // }
     }
 
     public function get_banks(Request $request){
