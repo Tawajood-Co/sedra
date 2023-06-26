@@ -9,12 +9,14 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Campaign extends Model implements TranslatableContract
 {
     use Translatable;
     use HasFactory;
-
+    use SoftDeletes;
+    
     protected $table = 'campaigns';
     public array $translatedAttributes = ['name', 'description'];
     protected $guarded = [];

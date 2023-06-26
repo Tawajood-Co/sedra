@@ -17,9 +17,8 @@ return [
      'wrong'          =>   'some thing error we will fix it as soon as possible',
      'item_not_found' =>   'this item not found',
      'success'        =>   'operation accomplished successfully',
-     'expire_time'    =>   'cancellation deadline has expired'
-
-
+     'expire_time'    =>   'cancellation deadline has expired',
+     'Admin_check'     =>   'Admin will check your request'
 
 ];
 

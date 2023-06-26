@@ -22,6 +22,11 @@ class DatabaseSeeder extends Seeder
         $this->call(product_translations::class);
         $this->call(product_features::class);
         $this->call(product_feature_translation::class);
+        $this->call(banks::class);
+        $this->call(banktranslation::class);
+
+
+
         // \App\Models\User::factory(10)->create();
 
         // \App\Models\User::factory()->create([

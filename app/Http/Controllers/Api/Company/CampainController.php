@@ -7,8 +7,9 @@ use Illuminate\Http\Request;
 use App\Http\Requests\companyapi\CompaignStore;
 use App\Models\{Campaign,Regiment,CampaignTranslation,CampaignOfficial,UserRegiment};
 use App\Traits\{response,fileTrait};
+use Illuminate\Support\Facades\DB;
 use Auth;
-
+use Validator;
 class CampainController extends Controller
 {
     //
@@ -97,6 +98,58 @@ class CampainController extends Controller
     }
 
 
+    public function cancel(Request $request){
 
+        $validator =Validator::make($request->all(), [
+            'campaign_id'         =>'required',
+        ]);
+        if ($validator->fails()) {
+                return response()->json([
+                    'message'=>$validator->messages()->first()
+                ],403);
+        }
+
+      try{
+        DB::beginTransaction();
+        $UserRegiment=UserRegiment::where('campaign_id',$request->campaign_id)->first();
+        if($UserRegiment==null){
+            $Campaign=Campaign::find($request->campaign_id);
+
+            $Campaign->delete();
+        }else{
+            return $this->response(true,__('response.Admin_check'));
+        }
+        DB::commit();
+        return $this->response(true,__('response.success'));
+        }catch(\Exception $ex){
+            return $this->response(false,__('response.wrong'),null,419);
+        }
+    }
+
+    public function delete(Request $request){
+        $validator =Validator::make($request->all(), [
+            'campaign_id'         =>'required',
+        ]);
+        if ($validator->fails()) {
+                return response()->json([
+                    'message'=>$validator->messages()->first()
+                ],403);
+        }
+
+      try{
+        DB::beginTransaction();
+        $UserRegiment=UserRegiment::where('campaign_id',$request->campaign_id)->first();
+        if($UserRegiment==null){
+            $Campaign=Campaign::find($request->campaign_id);
+            $Campaign->forceDelete();
+        }else{
+            return $this->response(true,__('response.Admin_check'));
+        }
+        DB::commit();
+        return $this->response(true,__('response.success'));
+        }catch(\Exception $ex){
+            return $this->response(false,__('response.wrong'),null,419);
+        }
+    }
 
 }

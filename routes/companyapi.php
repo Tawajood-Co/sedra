@@ -39,8 +39,10 @@ Route::middleware('lang')->group(function(){
         Route::controller(CampainController::class)->group(function(){
             Route::Post('store/campaign','store');
             Route::get('get/compaines','get_compaines');
-
             Route::get('get/booking/users/{campaign_id?}','booking_users');
+
+            Route::post('delete/campaign','delete');
+            Route::post('cancel/campaign','cancel');
         });
 
         Route::controller(ProfileController::class)->group(function(){
