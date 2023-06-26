@@ -28,4 +28,13 @@ class ProductController extends Controller
         return $this->response(true,'get product successfuly',$data);
     }
 
+
+    public function filter(Request $request){
+        $data['products']= Product::with('productFeatures','imgs')
+        ->where('price','<',$request->price)
+        ->where('type',$request->type)->get();
+      
+        return $this->response(true,'get product successfuly',$data);
+    }
+
 }
