@@ -91,7 +91,7 @@ class OrderController extends Controller
     //    try{
         DB::beginTransaction();
         $user=Auth::guard("user_api")->user();
-        $orders=Order::with(['detailes','items'])->where('user_id',$user->id)->paginate(20);
+        $orders=Order::with(['detailes','items.product'])->where('user_id',$user->id)->paginate(20);
         return $orders;
         DB::commit();
         return $this->response(true,__('response.success'));
