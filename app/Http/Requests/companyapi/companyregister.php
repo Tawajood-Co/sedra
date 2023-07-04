@@ -37,7 +37,7 @@ class companyregister extends FormRequest
             'bank_name'                   => 'required',
             'email'                       => 'required|unique:companies',
             'country_code'                => 'required',
-            'logo'                        => 'required'
+           // 'logo'                        => 'required'
         ];
     }
 
